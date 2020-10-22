@@ -1,7 +1,8 @@
 .EXPORT_ALL_VARIABLES:
 
 IMAGE_NAME=patdeg/hello-world
-REPO=hub.docker.com
+#REPO=hub.docker.com/
+REPO=
 NEXT_VERSION=$(shell cat VERSION | awk '{print $$1+1}')
 VERSION=$(shell cat VERSION)
 DEBUG=0
@@ -40,9 +41,9 @@ build:
 	@echo BUILD
 	@echo ===============
 	cd src ; docker build --build-arg DEBUG=1 -t $(IMAGE_NAME) .
-	docker tag $(IMAGE_NAME) $(REPO)/$(IMAGE_NAME):dev
-	docker push $(REPO)/$(IMAGE_NAME):dev
-	@echo Image ready at $(REPO)/$(IMAGE_NAME):dev
+	docker tag $(IMAGE_NAME) $(REPO)$(IMAGE_NAME):dev
+	docker push $(REPO)$(IMAGE_NAME):dev
+	@echo Image ready at $(REPO)$(IMAGE_NAME):dev
 
 prod:
 	@echo ===============
@@ -51,8 +52,8 @@ prod:
 	@echo $(NEXT_VERSION) > VERSION
 	@echo Building Version $(NEXT_VERSION)
 	cd src ; docker build --no-cache --build-arg DEBUG=0 -t $(IMAGE_NAME) .
-	docker tag $(IMAGE_NAME) $(REPO)/$(IMAGE_NAME):$(NEXT_VERSION)
-	docker push $(REPO)/$(IMAGE_NAME):$(NEXT_VERSION)
-	docker push $(REPO)/$(IMAGE_NAME):latest
-	@echo Image ready at $(REPO)/$(IMAGE_NAME):$(NEXT_VERSION)
+	docker tag $(IMAGE_NAME) $(REPO)$(IMAGE_NAME):$(NEXT_VERSION)
+	docker push $(REPO)$(IMAGE_NAME):$(NEXT_VERSION)
+	docker push $(REPO)$(IMAGE_NAME):latest
+	@echo Image ready at $(REPO)$(IMAGE_NAME):$(NEXT_VERSION)
 

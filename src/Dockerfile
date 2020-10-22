@@ -2,8 +2,15 @@
 # Step 1: Build the application in
 # a Go development image
 ######################################
-
 FROM golang:1.11.5-alpine3.9 AS builder
+
+# Update alpine
+RUN apk update
+
+# Install Python
+RUN apk add --update \
+    git \
+    build-base
 
 # Set up work directory
 WORKDIR /app
@@ -36,7 +43,7 @@ COPY --from=builder /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/
 # Copy in /lib the required shared libraries
 COPY --from=builder \
 	/lib/ld-musl-x86_64.so.1 \
-	/lib/libc.musl-x86_64.so.1
+	/lib/libc.musl-x86_64.so.1 \
 	/lib/
 
 # Copy our application & driver in /app
