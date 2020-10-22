@@ -1,0 +1,20 @@
+
+.center {	    
+    text-align: center;
+}
+
+.right {     
+    text-align: right;
+}
+
+.body {
+	background: #ffffff;
+}
+
+.loading {
+  width: 198px;
+  height: 198px;
+  text-align: center;
+  background-image : url(../img/loading-sprites.png);
+  animation: moveX 1s steps(20) infinite;
+}
